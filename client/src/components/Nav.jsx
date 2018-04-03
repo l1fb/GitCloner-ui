@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 
-import Nav from "Nav.jsx";
-
-class Landing extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      password: ""
+    };
   }
+
   render() {
     return (
       <div>
-        <Login />
+        <input />
+        <button>Log In</button>
       </div>
     );
   }
 }
 
-export default Landing;
+export default Login;
