@@ -1,0 +1,22 @@
+{
+  "name": "gitcloner-ui",
+  "version": "1.0.0",
+  "description": "Client side for GitCloner",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l1fb/GitCloner-ui.git"
+  },
+  "author": "David Yonwook Chung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/l1fb/GitCloner-ui/issues"
+  },
+  "homepage": "https://github.com/l1fb/GitCloner-ui#readme",
+  "dependencies": {
+    "react": "^16.3.0"
+  }
+}
