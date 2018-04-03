@@ -3,12 +3,12 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { render } from "react-dom";
 
 import Login from "./components/LogIn.jsx";
-import Landing from "./components/Landing.jsx";
+import Home from "./components/Home.jsx";
 import Nav from "./components/Nav.jsx";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
   render() {
     return (
@@ -16,7 +16,7 @@ class App extends Component {
         <Nav />
         <BrowserRouter>
           <Switch>
-            <Route path="/landing" component={Landing} />
+            <Route path="/home" component={Home} />
             <Route exact path="/" component={Login} />
           </Switch>
         </BrowserRouter>
