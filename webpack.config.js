@@ -2,16 +2,15 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
-  entry: ["babel-polyfill", "./src/index.jsx"],
+  entry: ["babel-polyfill", "./client/src/index.jsx"],
   output: {
-    path: path.resolve(__dirname, "./public"),
+    path: path.resolve(__dirname, "./client/public"),
     filename: "bundle.js"
   },
-  watch: true,
   module: {
     loaders: [
       {
-        test: /\.(jsx?)$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: "babel-loader",
         query: {
