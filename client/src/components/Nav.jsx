@@ -1,21 +1,13 @@
 import React, { Component } from "react";
 
-class Login extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      password: ""
-    };
   }
 
   render() {
-    return (
-      <div>
-        <input />
-        <button>Log In</button>
-      </div>
-    );
+    return <h1>Hack Reactor Git Cloner</h1>;
   }
 }
 
-export default Login;
+export default Nav;

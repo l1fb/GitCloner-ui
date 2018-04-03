@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Nav from "Nav.jsx";
+import Logout from "Logout.jsx";
 
 class Landing extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class Landing extends Component {
   render() {
     return (
       <div>
-        <Login />
+        <Logout />
       </div>
     );
   }
