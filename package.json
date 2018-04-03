@@ -4,7 +4,8 @@
   "description": "Client side for GitCloner",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon ./server"
   },
   "repository": {
     "type": "git",
