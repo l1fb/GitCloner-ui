@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Logout from "Logout.jsx";
+import Logout from "./Logout.jsx";
 
 class Landing extends Component {
   constructor(props) {
