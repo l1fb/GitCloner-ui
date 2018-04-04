@@ -33424,8 +33424,9 @@ var Login = function (_Component) {
     _this.state = {
       password: ""
     };
-    _this.verify = _this.verify.bind(_this);
     _this.onChangeHandler = _this.onChangeHandler.bind(_this);
+    _this.verify = _this.verify.bind(_this);
+    _this.verifyOnEnter = _this.verifyOnEnter.bind(_this);
     return _this;
   }
 
@@ -33440,7 +33441,16 @@ var Login = function (_Component) {
       if (this.state.password === "hir") {
         this.props.history.push("/home");
       } else {
-        alert("Invalid Password!");
+        alert("Invalid Password");
+      }
+    }
+  }, {
+    key: "verifyOnEnter",
+    value: function verifyOnEnter(e) {
+      if (e.key === "Enter" && this.state.password === "hir") {
+        this.props.history.push("/home");
+      } else if (e.key === "Enter" && this.state.password !== "hir") {
+        alert("Invalid Passwprd");
       }
     }
   }, {
@@ -33449,11 +33459,15 @@ var Login = function (_Component) {
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement("input", { name: "password", onChange: this.onChangeHandler }),
+        _react2.default.createElement("input", {
+          name: "password",
+          onChange: this.onChangeHandler,
+          onKeyPress: this.verifyOnEnter
+        }),
         _react2.default.createElement(
           "button",
           { onClick: this.verify },
-          "Log In "
+          "Log In"
         )
       );
     }
@@ -33608,6 +33622,8 @@ var _react = __webpack_require__(10);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(151);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33629,9 +33645,13 @@ var Logout = function (_Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "button",
-        null,
-        "Log Out"
+        _reactRouterDom.Link,
+        { to: "/" },
+        _react2.default.createElement(
+          "button",
+          null,
+          "Log Out"
+        )
       );
     }
   }]);

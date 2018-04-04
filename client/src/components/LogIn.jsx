@@ -7,8 +7,9 @@ class Login extends Component {
     this.state = {
       password: ""
     };
-    this.verify = this.verify.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
+    this.verify = this.verify.bind(this);
+    this.verifyOnEnter = this.verifyOnEnter.bind(this);
   }
 
   onChangeHandler(e) {
@@ -21,15 +22,27 @@ class Login extends Component {
     if (this.state.password === "hir") {
       this.props.history.push("/home");
     } else {
-      alert("Invalid Password!");
+      alert("Invalid Password");
+    }
+  }
+
+  verifyOnEnter(e) {
+    if (e.key === "Enter" && this.state.password === "hir") {
+      this.props.history.push("/home");
+    } else if (e.key === "Enter" && this.state.password !== "hir") {
+      alert("Invalid Passwprd");
     }
   }
 
   render() {
     return (
       <div>
-        <input name="password" onChange={this.onChangeHandler} />
-        <button onClick={this.verify}>Log In </button>
+        <input
+          name="password"
+          onChange={this.onChangeHandler}
+          onKeyPress={this.verifyOnEnter}
+        />
+        <button onClick={this.verify}>Log In</button>
       </div>
     );
   }
