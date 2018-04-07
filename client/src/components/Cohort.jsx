@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
-import Logout from "./Logout.jsx";
-import Cohort from "./Cohort.jsx";
-
-class Home extends Component {
+class Cohort extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,10 +8,10 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Logout />
+        <button>{this.props.cohortName}</button>
       </div>
     );
   }
 }
 
-export default Home;
+export default Cohort;
