@@ -4,6 +4,8 @@ import { render } from "react-dom";
 
 import Login from "./components/LogIn.jsx";
 import Home from "./components/Home.jsx";
+import createCohort from "./components/cohort/CreateCohort.jsx";
+import selectCohort from "./components/cohort/SelectCohort.jsx";
 import Nav from "./components/Nav.jsx";
 
 class App extends Component {
@@ -16,6 +18,8 @@ class App extends Component {
         <Nav />
         <BrowserRouter>
           <Switch>
+            {/* <Route path="/selectCohort" component={selectCohort} /> */}
+            <Route path="/createCohort" component={createCohort} />
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Login} />
           </Switch>

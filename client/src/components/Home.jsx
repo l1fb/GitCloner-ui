@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import Logout from "./Logout.jsx";
-import CreateCohort from "./cohort/CreateCohort.jsx";
-import SelectCohort from "./cohort/SelectCohort.jsx";
+import CreateCohortButton from "./buttons/CreateCohortButton.jsx";
+import SelectCohortButton from "./buttons/SelectCohortButton.jsx";
 
 class Home extends Component {
   constructor(props) {
@@ -12,8 +12,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <CreateCohort />
-        <SelectCohort />
+        <CreateCohortButton />
+        <SelectCohortButton />
         <Logout />
       </div>
     );
