@@ -20,14 +20,24 @@ class CreateCohort extends Component {
   }
 
   verifyOnEnter(e) {
-    if (e.key === "Enter" && this.state.password === "hir") {
-      this.props.history.push("/home");
-    } else if (e.key === "Enter" && this.state.password !== "hir") {
-      alert("Invalid Passwprd");
-    }
+    console.log("changes in the event", e);
   }
 
-  createCohortInDB() {}
+  createCohortInDB() {
+    axios
+      .post("http://localhost:3030/api/cohorts/createCohort", {
+        cohortname: this.state.cohortName
+      })
+      .then(succ => {
+        alert("Successfully registered the new cohort!", succ);
+      })
+      .catch(err => {
+        alert(
+          "Could not register the Cohort! Maybe it is already registered:",
+          err
+        );
+      });
+  }
 
   render() {
     return (
@@ -40,7 +50,13 @@ class CreateCohort extends Component {
             onKeyPress={this.verifyOnEnter}
           />
         </div>
-        <button>Submit</button>
+        <button
+          onClick={() => {
+            this.createCohortInDB();
+          }}
+        >
+          Submit
+        </button>
       </div>
     );
   }

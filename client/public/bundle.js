@@ -33789,18 +33789,24 @@ var CreateCohort = function (_Component) {
   }, {
     key: "verifyOnEnter",
     value: function verifyOnEnter(e) {
-      if (e.key === "Enter" && this.state.password === "hir") {
-        this.props.history.push("/home");
-      } else if (e.key === "Enter" && this.state.password !== "hir") {
-        alert("Invalid Passwprd");
-      }
+      console.log("changes in the event", e);
     }
   }, {
     key: "createCohortInDB",
-    value: function createCohortInDB() {}
+    value: function createCohortInDB() {
+      _axios2.default.post("http://localhost:3030/api/cohorts/createCohort", {
+        cohortname: this.state.cohortName
+      }).then(function (succ) {
+        alert("Successfully registered the new cohort!", succ);
+      }).catch(function (err) {
+        alert("Could not register the Cohort! Maybe it is already registered:", err);
+      });
+    }
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         "div",
         null,
@@ -33816,7 +33822,11 @@ var CreateCohort = function (_Component) {
         ),
         _react2.default.createElement(
           "button",
-          null,
+          {
+            onClick: function onClick() {
+              _this2.createCohortInDB();
+            }
+          },
           "Submit"
         )
       );
