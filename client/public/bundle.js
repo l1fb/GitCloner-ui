@@ -33755,6 +33755,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -33769,12 +33771,31 @@ var CreateCohort = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (CreateCohort.__proto__ || Object.getPrototypeOf(CreateCohort)).call(this));
 
-    _this.state = {};
+    _this.state = {
+      cohortName: ""
+    };
     _this.createCohortInDB = _this.createCohortInDB.bind(_this);
+    _this.onChangeHandler = _this.onChangeHandler.bind(_this);
+    _this.verifyOnEnter = _this.verifyOnEnter.bind(_this);
     return _this;
   }
 
   _createClass(CreateCohort, [{
+    key: "onChangeHandler",
+    value: function onChangeHandler(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+      console.log(this.state.cohortName);
+    }
+  }, {
+    key: "verifyOnEnter",
+    value: function verifyOnEnter(e) {
+      if (e.key === "Enter" && this.state.password === "hir") {
+        this.props.history.push("/home");
+      } else if (e.key === "Enter" && this.state.password !== "hir") {
+        alert("Invalid Passwprd");
+      }
+    }
+  }, {
     key: "createCohortInDB",
     value: function createCohortInDB() {}
   }, {
@@ -33787,7 +33808,11 @@ var CreateCohort = function (_Component) {
           "div",
           null,
           "Name of the Cohort",
-          _react2.default.createElement("input", null)
+          _react2.default.createElement("input", {
+            name: "cohortName",
+            onChange: this.onChangeHandler,
+            onKeyPress: this.verifyOnEnter
+          })
         ),
         _react2.default.createElement(
           "button",
