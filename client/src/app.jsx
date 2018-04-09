@@ -18,7 +18,7 @@ class App extends Component {
         <Nav />
         <BrowserRouter>
           <Switch>
-            {/* <Route path="/selectCohort" component={selectCohort} /> */}
+            <Route path="/selectCohort" component={selectCohort} />
             <Route path="/createCohort" component={createCohort} />
             <Route path="/home" component={Home} />
             <Route exact path="/" component={Login} />

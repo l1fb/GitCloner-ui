@@ -33454,6 +33454,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/selectCohort", component: _SelectCohort2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/createCohort", component: _CreateCohort2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/home", component: _Home2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _LogIn2.default })
@@ -33766,10 +33767,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CreateCohort = function (_Component) {
   _inherits(CreateCohort, _Component);
 
-  function CreateCohort() {
+  function CreateCohort(props) {
     _classCallCheck(this, CreateCohort);
 
-    var _this = _possibleConstructorReturn(this, (CreateCohort.__proto__ || Object.getPrototypeOf(CreateCohort)).call(this));
+    var _this = _possibleConstructorReturn(this, (CreateCohort.__proto__ || Object.getPrototypeOf(CreateCohort)).call(this, props));
 
     _this.state = {
       cohortName: ""
@@ -33794,10 +33795,13 @@ var CreateCohort = function (_Component) {
   }, {
     key: "createCohortInDB",
     value: function createCohortInDB() {
+      var _this2 = this;
+
       _axios2.default.post("http://localhost:3030/api/cohorts/createCohort", {
         cohortname: this.state.cohortName
       }).then(function (succ) {
         alert("Successfully registered the new cohort!", succ);
+        _this2.props.history.push("/selectCohort");
       }).catch(function (err) {
         alert("Could not register the Cohort! Maybe it is already registered:", err);
       });
@@ -33805,7 +33809,7 @@ var CreateCohort = function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _react2.default.createElement(
         "div",
@@ -33824,7 +33828,7 @@ var CreateCohort = function (_Component) {
           "button",
           {
             onClick: function onClick() {
-              _this2.createCohortInDB();
+              _this3.createCohortInDB();
             }
           },
           "Submit"
@@ -33844,6 +33848,83 @@ exports.default = CreateCohort;
 
 "use strict";
 
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(9);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(415);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _BackButton = __webpack_require__(437);
+
+var _BackButton2 = _interopRequireDefault(_BackButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SelectCohort = function (_Component) {
+  _inherits(SelectCohort, _Component);
+
+  function SelectCohort() {
+    _classCallCheck(this, SelectCohort);
+
+    var _this = _possibleConstructorReturn(this, (SelectCohort.__proto__ || Object.getPrototypeOf(SelectCohort)).call(this));
+
+    _this.state = {
+      cohorts: []
+    };
+    return _this;
+  }
+
+  _createClass(SelectCohort, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      _axios2.default.get("http://localhost:3030/api/cohorts/getAllCohort").then(function (succ) {
+        console.log("what is this lol", succ.data);
+        _this2.setState({
+          cohorts: succ.data
+        });
+      }).catch(function (err) {
+        console.log("Failed to getAllCohorts", err);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        this.state.cohorts.map(function (cohort, i) {
+          return _react2.default.createElement(
+            "div",
+            { key: i },
+            cohort.cohortname
+          );
+        }),
+        _react2.default.createElement(_BackButton2.default, null)
+      );
+    }
+  }]);
+
+  return SelectCohort;
+}(_react.Component);
+
+exports.default = SelectCohort;
 
 /***/ }),
 /* 408 */
@@ -35453,18 +35534,10 @@ var CreateCohort = function (_Component) {
   function CreateCohort(props) {
     _classCallCheck(this, CreateCohort);
 
-    var _this = _possibleConstructorReturn(this, (CreateCohort.__proto__ || Object.getPrototypeOf(CreateCohort)).call(this, props));
-
-    _this.createNewCohort = _this.createNewCohort.bind(_this);
-    return _this;
+    return _possibleConstructorReturn(this, (CreateCohort.__proto__ || Object.getPrototypeOf(CreateCohort)).call(this, props));
   }
 
   _createClass(CreateCohort, [{
-    key: "createNewCohort",
-    value: function createNewCohort() {
-      this.props.history.push("");
-    }
-  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -35524,11 +35597,11 @@ var SelectCohort = function (_Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "div",
+        "button",
         null,
         _react2.default.createElement(
-          "button",
-          null,
+          _reactRouterDom.Link,
+          { to: "/selectCohort" },
           "Select Cohort"
         )
       );
@@ -35539,6 +35612,67 @@ var SelectCohort = function (_Component) {
 }(_react.Component);
 
 exports.default = SelectCohort;
+
+/***/ }),
+/* 436 */,
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(9);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(75);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BackButton = function (_Component) {
+  _inherits(BackButton, _Component);
+
+  function BackButton(props) {
+    _classCallCheck(this, BackButton);
+
+    return _possibleConstructorReturn(this, (BackButton.__proto__ || Object.getPrototypeOf(BackButton)).call(this, props));
+  }
+
+  _createClass(BackButton, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "button",
+          null,
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: "/home" },
+            "Back"
+          )
+        )
+      );
+    }
+  }]);
+
+  return BackButton;
+}(_react.Component);
+
+exports.default = BackButton;
 
 /***/ })
 /******/ ]);

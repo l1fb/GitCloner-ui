@@ -5,11 +5,6 @@ import axios from "axios";
 class CreateCohort extends Component {
   constructor(props) {
     super(props);
-    this.createNewCohort = this.createNewCohort.bind(this);
-  }
-
-  createNewCohort() {
-    this.props.history.push("");
   }
 
   render() {

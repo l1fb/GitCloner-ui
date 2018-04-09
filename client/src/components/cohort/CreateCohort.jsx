@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 
 class CreateCohort extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       cohortName: ""
     };
@@ -30,6 +30,7 @@ class CreateCohort extends Component {
       })
       .then(succ => {
         alert("Successfully registered the new cohort!", succ);
+        this.props.history.push("/selectCohort");
       })
       .catch(err => {
         alert(
