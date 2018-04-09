@@ -112,7 +112,7 @@ class CohortEntry extends Component {
     return (
       <div>
         <div>{this.props.location.name}</div>
-
+        <hr />
         <div>
           Easy Entry - Copy and Paste or Drag into the box
           <div>
@@ -125,6 +125,8 @@ class CohortEntry extends Component {
           </div>
           <button onClick={this.easyRegister}>Easy Register Students</button>
         </div>
+
+        <hr />
 
         <div>
           Manual Entry
@@ -142,6 +144,31 @@ class CohortEntry extends Component {
           </div>
           <button onClick={this.manualRegister}>Register A Student</button>
         </div>
+        <hr />
+        <button>Git Cloning</button>
+
+        <div>
+          Koans
+          <input type="checkbox" />
+        </div>
+        <div>
+          Underbar
+          <input type="checkbox" />
+        </div>
+        <div>
+          Test Builder
+          <input type="checkbox" />
+        </div>
+
+        <div>
+          Twittler
+          <input type="checkbox" />
+        </div>
+
+        <div>
+          Recursion
+          <input type="checkbox" />
+        </div>
 
         {this.state.students.map(student => (
           <div>
@@ -150,7 +177,7 @@ class CohortEntry extends Component {
             </div>
           </div>
         ))}
-        <button>Git Cloning</button>
+
         <button onClick={this.stateChecker}>State Checker</button>
       </div>
     );

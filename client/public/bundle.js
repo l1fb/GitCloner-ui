@@ -35783,6 +35783,7 @@ var CohortEntry = function (_Component) {
           null,
           this.props.location.name
         ),
+        _react2.default.createElement("hr", null),
         _react2.default.createElement(
           "div",
           null,
@@ -35805,6 +35806,7 @@ var CohortEntry = function (_Component) {
             "Easy Register Students"
           )
         ),
+        _react2.default.createElement("hr", null),
         _react2.default.createElement(
           "div",
           null,
@@ -35833,6 +35835,42 @@ var CohortEntry = function (_Component) {
             "Register A Student"
           )
         ),
+        _react2.default.createElement("hr", null),
+        _react2.default.createElement(
+          "button",
+          null,
+          "Git Cloning"
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Koans",
+          _react2.default.createElement("input", { type: "checkbox" })
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Underbar",
+          _react2.default.createElement("input", { type: "checkbox" })
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Test Builder",
+          _react2.default.createElement("input", { type: "checkbox" })
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Twittler",
+          _react2.default.createElement("input", { type: "checkbox" })
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Recursion",
+          _react2.default.createElement("input", { type: "checkbox" })
+        ),
         this.state.students.map(function (student) {
           return _react2.default.createElement(
             "div",
@@ -35847,11 +35885,6 @@ var CohortEntry = function (_Component) {
             )
           );
         }),
-        _react2.default.createElement(
-          "button",
-          null,
-          "Git Cloning"
-        ),
         _react2.default.createElement(
           "button",
           { onClick: this.stateChecker },
