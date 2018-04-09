@@ -35759,18 +35759,35 @@ var CohortEntry = function (_Component) {
 
       console.log("arr", stdntNameArr, stdntHandleArr);
 
-      for (var j = 0; j < stdntNameArr.length; j++) {
-        _axios2.default.post("http://localhost:3030/api/students/addStudent", {
-          fullname: stdntNameArr[j],
-          username: stdntHandleArr[j],
-          cohort_id: this.state.cohort_id
-        }).then(function (succ) {
-          console.log("Successfully registered a student!");
-          alert("Successfully added the students!");
-        }).catch(function (err) {
-          console.log("Could not register the student:", err);
-        });
+      if (stdntNameArr.length === stdntHandleArr.length) {
+        for (var j = 0; j < stdntNameArr.length; j++) {
+          _axios2.default.post("http://localhost:3030/api/students/addStudent", {
+            fullname: stdntNameArr[j],
+            username: stdntHandleArr[j],
+            cohort_id: this.state.cohort_id
+          }).then(function (succ) {
+            console.log("Successfully registered a student!");
+            alert("Successfully added the students!");
+          }).catch(function (err) {
+            console.log("Could not register the student:", err);
+          });
+        }
+      } else {
+        alert("Check the Students Name and GitHub Handles inputs!");
       }
+    }
+  }, {
+    key: "gitClone",
+    value: function gitClone(handle, repo) {
+      _axios2.default.post("http://localhost:3030/api/repos/clone", {
+        cohortname: this.props.location.name,
+        githubHandle: handle,
+        repoNames: repo
+      }).then(function (succ) {
+        console.log("Sucessfully cloned down all the repos");
+      }).catch(function (err) {
+        console.log("Failed to clone the repos");
+      });
     }
   }, {
     key: "render",
@@ -35781,6 +35798,7 @@ var CohortEntry = function (_Component) {
         _react2.default.createElement(
           "div",
           null,
+          "Current Cohort: ",
           this.props.location.name
         ),
         _react2.default.createElement("hr", null),
@@ -35837,11 +35855,6 @@ var CohortEntry = function (_Component) {
         ),
         _react2.default.createElement("hr", null),
         _react2.default.createElement(
-          "button",
-          null,
-          "Git Cloning"
-        ),
-        _react2.default.createElement(
           "div",
           null,
           "Koans",
@@ -35871,6 +35884,12 @@ var CohortEntry = function (_Component) {
           "Recursion",
           _react2.default.createElement("input", { type: "checkbox" })
         ),
+        _react2.default.createElement(
+          "button",
+          null,
+          "Git Cloning"
+        ),
+        _react2.default.createElement("hr", null),
         this.state.students.map(function (student) {
           return _react2.default.createElement(
             "div",

@@ -91,27 +91,46 @@ class CohortEntry extends Component {
 
     console.log("arr", stdntNameArr, stdntHandleArr);
 
-    for (let j = 0; j < stdntNameArr.length; j++) {
-      axios
-        .post("http://localhost:3030/api/students/addStudent", {
-          fullname: stdntNameArr[j],
-          username: stdntHandleArr[j],
-          cohort_id: this.state.cohort_id
-        })
-        .then(succ => {
-          console.log("Successfully registered a student!");
-          alert("Successfully added the students!");
-        })
-        .catch(err => {
-          console.log("Could not register the student:", err);
-        });
+    if (stdntNameArr.length === stdntHandleArr.length) {
+      for (let j = 0; j < stdntNameArr.length; j++) {
+        axios
+          .post("http://localhost:3030/api/students/addStudent", {
+            fullname: stdntNameArr[j],
+            username: stdntHandleArr[j],
+            cohort_id: this.state.cohort_id
+          })
+          .then(succ => {
+            console.log("Successfully registered a student!");
+            alert("Successfully added the students!");
+          })
+          .catch(err => {
+            console.log("Could not register the student:", err);
+          });
+      }
+    } else {
+      alert("Check the Students Name and GitHub Handles inputs!");
     }
+  }
+
+  gitClone(handle, repo) {
+    axios
+      .post("http://localhost:3030/api/repos/clone", {
+        cohortname: this.props.location.name,
+        githubHandle: handle,
+        repoNames: repo
+      })
+      .then(succ => {
+        console.log("Sucessfully cloned down all the repos");
+      })
+      .catch(err => {
+        console.log("Failed to clone the repos");
+      });
   }
 
   render() {
     return (
       <div>
-        <div>{this.props.location.name}</div>
+        <div>Current Cohort: {this.props.location.name}</div>
         <hr />
         <div>
           Easy Entry - Copy and Paste or Drag into the box
@@ -145,7 +164,6 @@ class CohortEntry extends Component {
           <button onClick={this.manualRegister}>Register A Student</button>
         </div>
         <hr />
-        <button>Git Cloning</button>
 
         <div>
           Koans
@@ -170,6 +188,9 @@ class CohortEntry extends Component {
           <input type="checkbox" />
         </div>
 
+        <button>Git Cloning</button>
+
+        <hr />
         {this.state.students.map(student => (
           <div>
             <div>
