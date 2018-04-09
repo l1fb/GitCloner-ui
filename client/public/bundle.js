@@ -35766,6 +35766,7 @@ var CohortEntry = function (_Component) {
     _this.manualRegister = _this.manualRegister.bind(_this);
     _this.easyRegister = _this.easyRegister.bind(_this);
     _this.checkBoxCH = _this.checkBoxCH.bind(_this);
+    _this.massClone = _this.massClone.bind(_this);
     return _this;
   }
 
@@ -35882,7 +35883,13 @@ var CohortEntry = function (_Component) {
   }, {
     key: "massClone",
     value: function massClone() {
-      this.state.students.forEach(function (student) {});
+      var _this4 = this;
+
+      this.state.students.forEach(function (student) {
+        _this4.state.materials.forEach(function (material) {
+          _this4.gitClone(student.username, material);
+        });
+      });
     }
   }, {
     key: "render",
@@ -35989,7 +35996,7 @@ var CohortEntry = function (_Component) {
         ),
         _react2.default.createElement(
           "button",
-          null,
+          { onClick: this.massClone },
           "Clone to your Desktop"
         ),
         _react2.default.createElement("hr", null),

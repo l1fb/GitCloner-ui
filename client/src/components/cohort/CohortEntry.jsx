@@ -21,6 +21,7 @@ class CohortEntry extends Component {
     this.manualRegister = this.manualRegister.bind(this);
     this.easyRegister = this.easyRegister.bind(this);
     this.checkBoxCH = this.checkBoxCH.bind(this);
+    this.massClone = this.massClone.bind(this);
   }
 
   getAllStudents() {
@@ -148,7 +149,11 @@ class CohortEntry extends Component {
   }
 
   massClone() {
-    this.state.students.forEach(student => {});
+    this.state.students.forEach(student => {
+      this.state.materials.forEach(material => {
+        this.gitClone(student.username, material);
+      });
+    });
   }
 
   render() {
@@ -220,7 +225,7 @@ class CohortEntry extends Component {
           <input type="checkbox" name="recursion" onChange={this.checkBoxCH} />
         </div>
 
-        <button>Clone to your Desktop</button>
+        <button onClick={this.massClone}>Clone to your Desktop</button>
 
         <hr />
         {this.state.students.map(student => (
