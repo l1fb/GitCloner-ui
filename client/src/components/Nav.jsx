@@ -6,7 +6,12 @@ class Nav extends Component {
   }
 
   render() {
-    return <h1>Hack Reactor Git Cloner</h1>;
+    return (
+      <div>
+        <img src={require("../../public/assets/icons/STicon.ico")} />
+        <h1>Hack Reactor Git Cloner</h1>
+      </div>
+    );
   }
 }
 
