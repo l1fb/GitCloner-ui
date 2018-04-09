@@ -35650,6 +35650,14 @@ var _react = __webpack_require__(9);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(415);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _BackButton = __webpack_require__(437);
+
+var _BackButton2 = _interopRequireDefault(_BackButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35668,6 +35676,18 @@ var CohortEntry = function (_Component) {
   }
 
   _createClass(CohortEntry, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+    // getStudentsFromCohort(this.props.location.name);
+
+
+    //draggable box function
+    //the received arguments are in space.
+    //will use split to separate each invocation
+
+    //manual entry input.
+
+  }, {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
@@ -35676,9 +35696,52 @@ var CohortEntry = function (_Component) {
         _react2.default.createElement(
           "div",
           null,
-          "demo"
+          this.props.location.name
         ),
-        console.log(this.props)
+        _react2.default.createElement(
+          "div",
+          null,
+          "Easy Entry",
+          _react2.default.createElement(
+            "div",
+            null,
+            "Drag Students Name:",
+            _react2.default.createElement("input", null)
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
+            "Drag GitHub Handles:",
+            _react2.default.createElement("input", null)
+          ),
+          _react2.default.createElement(
+            "button",
+            null,
+            "Easy Register Students"
+          )
+        ),
+        _react2.default.createElement(
+          "div",
+          null,
+          "Manual Entry",
+          _react2.default.createElement(
+            "div",
+            null,
+            "Student Name:",
+            _react2.default.createElement("input", null)
+          ),
+          _react2.default.createElement(
+            "div",
+            null,
+            "GitHubHandle:",
+            _react2.default.createElement("input", null)
+          ),
+          _react2.default.createElement(
+            "button",
+            null,
+            "Register A Student"
+          )
+        )
       );
     }
   }]);
