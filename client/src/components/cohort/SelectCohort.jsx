@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import BackButton from "../buttons/BackButton.jsx";
 
 class SelectCohort extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       cohorts: []
     };
@@ -29,7 +30,14 @@ class SelectCohort extends Component {
     return (
       <div>
         {this.state.cohorts.map((cohort, i) => {
-          return <div key={i}>{cohort.cohortname}</div>;
+          return (
+            <div>
+              <div key={i}>{cohort.cohortname}</div>
+              <Link to={{ pathname: "/cohortEntry", name: cohort.cohortname }}>
+                <button> view </button>
+              </Link>
+            </div>
+          );
         })}
         <BackButton />
       </div>

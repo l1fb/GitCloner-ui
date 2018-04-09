@@ -33424,6 +33424,10 @@ var _Nav = __webpack_require__(405);
 
 var _Nav2 = _interopRequireDefault(_Nav);
 
+var _CohortEntry = __webpack_require__(436);
+
+var _CohortEntry2 = _interopRequireDefault(_CohortEntry);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33454,6 +33458,7 @@ var App = function (_Component) {
           _react2.default.createElement(
             _reactRouterDom.Switch,
             null,
+            _react2.default.createElement(_reactRouterDom.Route, { path: "/cohortEntry", component: _CohortEntry2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/selectCohort", component: _SelectCohort2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/createCohort", component: _CreateCohort2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: "/home", component: _Home2.default }),
@@ -33863,6 +33868,8 @@ var _axios = __webpack_require__(415);
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _reactRouterDom = __webpack_require__(75);
+
 var _BackButton = __webpack_require__(437);
 
 var _BackButton2 = _interopRequireDefault(_BackButton);
@@ -33878,10 +33885,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SelectCohort = function (_Component) {
   _inherits(SelectCohort, _Component);
 
-  function SelectCohort() {
+  function SelectCohort(props) {
     _classCallCheck(this, SelectCohort);
 
-    var _this = _possibleConstructorReturn(this, (SelectCohort.__proto__ || Object.getPrototypeOf(SelectCohort)).call(this));
+    var _this = _possibleConstructorReturn(this, (SelectCohort.__proto__ || Object.getPrototypeOf(SelectCohort)).call(this, props));
 
     _this.state = {
       cohorts: []
@@ -33912,8 +33919,21 @@ var SelectCohort = function (_Component) {
         this.state.cohorts.map(function (cohort, i) {
           return _react2.default.createElement(
             "div",
-            { key: i },
-            cohort.cohortname
+            null,
+            _react2.default.createElement(
+              "div",
+              { key: i },
+              cohort.cohortname
+            ),
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: { pathname: "/cohortEntry", name: cohort.cohortname } },
+              _react2.default.createElement(
+                "button",
+                null,
+                " view "
+              )
+            )
           );
         }),
         _react2.default.createElement(_BackButton2.default, null)
@@ -35541,11 +35561,11 @@ var CreateCohort = function (_Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "button",
-        null,
+        _reactRouterDom.Link,
+        { to: "/createCohort" },
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: "/createCohort" },
+          "button",
+          null,
           "Register New Cohort"
         )
       );
@@ -35597,11 +35617,11 @@ var SelectCohort = function (_Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "button",
-        null,
+        _reactRouterDom.Link,
+        { to: "/selectCohort" },
         _react2.default.createElement(
-          _reactRouterDom.Link,
-          { to: "/selectCohort" },
+          "button",
+          null,
           "Select Cohort"
         )
       );
@@ -35614,7 +35634,61 @@ var SelectCohort = function (_Component) {
 exports.default = SelectCohort;
 
 /***/ }),
-/* 436 */,
+/* 436 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(9);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CohortEntry = function (_Component) {
+  _inherits(CohortEntry, _Component);
+
+  function CohortEntry(props) {
+    _classCallCheck(this, CohortEntry);
+
+    return _possibleConstructorReturn(this, (CohortEntry.__proto__ || Object.getPrototypeOf(CohortEntry)).call(this, props));
+  }
+
+  _createClass(CohortEntry, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          "div",
+          null,
+          "demo"
+        ),
+        console.log(this.props)
+      );
+    }
+  }]);
+
+  return CohortEntry;
+}(_react.Component);
+
+exports.default = CohortEntry;
+
+/***/ }),
 /* 437 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -35654,16 +35728,12 @@ var BackButton = function (_Component) {
     key: "render",
     value: function render() {
       return _react2.default.createElement(
-        "div",
-        null,
+        _reactRouterDom.Link,
+        { to: "/home" },
         _react2.default.createElement(
           "button",
           null,
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: "/home" },
-            "Back"
-          )
+          "Back"
         )
       );
     }

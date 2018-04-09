@@ -8,11 +8,9 @@ class BackButton extends Component {
 
   render() {
     return (
-      <div>
-        <button>
-          <Link to="/home">Back</Link>
-        </button>
-      </div>
+      <Link to="/home">
+        <button>Back</button>
+      </Link>
     );
   }
 }

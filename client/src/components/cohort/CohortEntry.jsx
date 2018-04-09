@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 
 class CohortEntry extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {
     return (
       <div>
         <div>demo</div>
+        {console.log(this.props)}
       </div>
     );
   }

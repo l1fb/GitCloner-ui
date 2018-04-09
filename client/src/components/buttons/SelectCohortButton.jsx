@@ -8,9 +8,9 @@ class SelectCohort extends Component {
 
   render() {
     return (
-      <button>
-        <Link to="/selectCohort">Select Cohort</Link>
-      </button>
+      <Link to="/selectCohort">
+        <button>Select Cohort</button>
+      </Link>
     );
   }
 }

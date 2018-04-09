@@ -9,9 +9,9 @@ class CreateCohort extends Component {
 
   render() {
     return (
-      <button>
-        <Link to="/createCohort">Register New Cohort</Link>
-      </button>
+      <Link to="/createCohort">
+        <button>Register New Cohort</button>
+      </Link>
     );
   }
 }
