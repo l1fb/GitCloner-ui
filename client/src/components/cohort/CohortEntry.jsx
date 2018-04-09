@@ -12,13 +12,15 @@ class CohortEntry extends Component {
       manualHandle: "",
       easyStdnt: "",
       easyHandle: "",
-      students: []
+      students: [],
+      materials: []
     };
     this.onChangeHandler = this.onChangeHandler.bind(this);
     this.stateChecker = this.stateChecker.bind(this);
     this.getAllStudents = this.getAllStudents.bind(this);
     this.manualRegister = this.manualRegister.bind(this);
     this.easyRegister = this.easyRegister.bind(this);
+    this.checkBoxCH = this.checkBoxCH.bind(this);
   }
 
   getAllStudents() {
@@ -59,6 +61,24 @@ class CohortEntry extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  checkBoxCH(e) {
+    if (this.state.materials.includes(e.target.name)) {
+      let indexOfTarget = this.state.materials.indexOf(e.target.name);
+      let copyOfMaterials = this.state.materials.slice();
+      // remove the selected element from the array
+      copyOfMaterials.splice(indexOfTarget, 1);
+      // set it as the new state.
+      this.setState({
+        materials: copyOfMaterials
+      });
+    } else {
+      this.setState({
+        materials: [...this.state.materials, e.target.name]
+      });
+    }
+    console.log(e.target.name);
   }
 
   manualRegister() {
@@ -127,6 +147,10 @@ class CohortEntry extends Component {
       });
   }
 
+  massClone() {
+    this.state.students.forEach(student => {});
+  }
+
   render() {
     return (
       <div>
@@ -167,28 +191,36 @@ class CohortEntry extends Component {
 
         <div>
           Koans
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="javascript-koans"
+            onChange={this.checkBoxCH}
+          />
         </div>
         <div>
           Underbar
-          <input type="checkbox" />
+          <input type="checkbox" name="underbar" onChange={this.checkBoxCH} />
         </div>
         <div>
           Test Builder
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            name="testbuilder"
+            onChange={this.checkBoxCH}
+          />
         </div>
 
         <div>
           Twittler
-          <input type="checkbox" />
+          <input type="checkbox" name="twittler" onChange={this.checkBoxCH} />
         </div>
 
         <div>
           Recursion
-          <input type="checkbox" />
+          <input type="checkbox" name="recursion" onChange={this.checkBoxCH} />
         </div>
 
-        <button>Git Cloning</button>
+        <button>Clone to your Desktop</button>
 
         <hr />
         {this.state.students.map(student => (

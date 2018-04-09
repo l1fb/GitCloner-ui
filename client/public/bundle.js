@@ -35733,6 +35733,8 @@ var _BackButton2 = _interopRequireDefault(_BackButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -35755,13 +35757,15 @@ var CohortEntry = function (_Component) {
       manualHandle: "",
       easyStdnt: "",
       easyHandle: "",
-      students: []
+      students: [],
+      materials: []
     };
     _this.onChangeHandler = _this.onChangeHandler.bind(_this);
     _this.stateChecker = _this.stateChecker.bind(_this);
     _this.getAllStudents = _this.getAllStudents.bind(_this);
     _this.manualRegister = _this.manualRegister.bind(_this);
     _this.easyRegister = _this.easyRegister.bind(_this);
+    _this.checkBoxCH = _this.checkBoxCH.bind(_this);
     return _this;
   }
 
@@ -35796,6 +35800,25 @@ var CohortEntry = function (_Component) {
     key: "onChangeHandler",
     value: function onChangeHandler(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "checkBoxCH",
+    value: function checkBoxCH(e) {
+      if (this.state.materials.includes(e.target.name)) {
+        var indexOfTarget = this.state.materials.indexOf(e.target.name);
+        var copyOfMaterials = this.state.materials.slice();
+        // remove the selected element from the array
+        copyOfMaterials.splice(indexOfTarget, 1);
+        // set it as the new state.
+        this.setState({
+          materials: copyOfMaterials
+        });
+      } else {
+        this.setState({
+          materials: [].concat(_toConsumableArray(this.state.materials), [e.target.name])
+        });
+      }
+      console.log(e.target.name);
     }
   }, {
     key: "manualRegister",
@@ -35855,6 +35878,11 @@ var CohortEntry = function (_Component) {
       }).catch(function (err) {
         console.log("Failed to clone the repos");
       });
+    }
+  }, {
+    key: "massClone",
+    value: function massClone() {
+      this.state.students.forEach(function (student) {});
     }
   }, {
     key: "render",
@@ -35925,36 +35953,44 @@ var CohortEntry = function (_Component) {
           "div",
           null,
           "Koans",
-          _react2.default.createElement("input", { type: "checkbox" })
+          _react2.default.createElement("input", {
+            type: "checkbox",
+            name: "javascript-koans",
+            onChange: this.checkBoxCH
+          })
         ),
         _react2.default.createElement(
           "div",
           null,
           "Underbar",
-          _react2.default.createElement("input", { type: "checkbox" })
+          _react2.default.createElement("input", { type: "checkbox", name: "underbar", onChange: this.checkBoxCH })
         ),
         _react2.default.createElement(
           "div",
           null,
           "Test Builder",
-          _react2.default.createElement("input", { type: "checkbox" })
+          _react2.default.createElement("input", {
+            type: "checkbox",
+            name: "testbuilder",
+            onChange: this.checkBoxCH
+          })
         ),
         _react2.default.createElement(
           "div",
           null,
           "Twittler",
-          _react2.default.createElement("input", { type: "checkbox" })
+          _react2.default.createElement("input", { type: "checkbox", name: "twittler", onChange: this.checkBoxCH })
         ),
         _react2.default.createElement(
           "div",
           null,
           "Recursion",
-          _react2.default.createElement("input", { type: "checkbox" })
+          _react2.default.createElement("input", { type: "checkbox", name: "recursion", onChange: this.checkBoxCH })
         ),
         _react2.default.createElement(
           "button",
           null,
-          "Git Cloning"
+          "Clone to your Desktop"
         ),
         _react2.default.createElement("hr", null),
         this.state.students.map(function (student) {
