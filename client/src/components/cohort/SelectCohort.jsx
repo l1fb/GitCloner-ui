@@ -33,7 +33,13 @@ class SelectCohort extends Component {
           return (
             <div>
               <div key={i}>{cohort.cohortname}</div>
-              <Link to={{ pathname: "/cohortEntry", name: cohort.cohortname }}>
+              <Link
+                to={{
+                  pathname: "/cohortEntry",
+                  name: cohort.cohortname,
+                  id: cohort.id
+                }}
+              >
                 <button> view </button>
               </Link>
             </div>

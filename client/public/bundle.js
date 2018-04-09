@@ -33927,7 +33927,13 @@ var SelectCohort = function (_Component) {
             ),
             _react2.default.createElement(
               _reactRouterDom.Link,
-              { to: { pathname: "/cohortEntry", name: cohort.cohortname } },
+              {
+                to: {
+                  pathname: "/cohortEntry",
+                  name: cohort.cohortname,
+                  id: cohort.id
+                }
+              },
               _react2.default.createElement(
                 "button",
                 null,
@@ -35660,6 +35666,8 @@ var _BackButton2 = _interopRequireDefault(_BackButton);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -35672,21 +35680,98 @@ var CohortEntry = function (_Component) {
   function CohortEntry(props) {
     _classCallCheck(this, CohortEntry);
 
-    return _possibleConstructorReturn(this, (CohortEntry.__proto__ || Object.getPrototypeOf(CohortEntry)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (CohortEntry.__proto__ || Object.getPrototypeOf(CohortEntry)).call(this, props));
+
+    _this.state = {
+      cohort_id: 0,
+      manualStdnt: "",
+      manualHandle: "",
+      easyStdnt: "",
+      easyHandle: "",
+      students: []
+    };
+    _this.onChangeHandler = _this.onChangeHandler.bind(_this);
+    _this.stateChecker = _this.stateChecker.bind(_this);
+    _this.getAllStudents = _this.getAllStudents.bind(_this);
+    _this.manualRegister = _this.manualRegister.bind(_this);
+    _this.easyRegister = _this.easyRegister.bind(_this);
+    return _this;
   }
 
   _createClass(CohortEntry, [{
+    key: "getAllStudents",
+    value: function getAllStudents() {
+      var _this2 = this;
+
+      _axios2.default.get("http://localhost:3030/api/students/getStudent/?cohort_id=" + this.props.location.id).then(function (succ) {
+        console.log("Got all the students with cohort_id: " + _this2.state.cohort_id);
+        console.log("this is the students", succ.data.rows);
+        _this2.setState({
+          students: succ.data.rows
+        });
+      }).catch(function (err) {
+        console.log("Could not get the students from the database with cohort_id: " + _this2.stateChecker.cohort_id);
+      });
+    }
+  }, {
     key: "componentDidMount",
-    value: function componentDidMount() {}
-    // getStudentsFromCohort(this.props.location.name);
+    value: function componentDidMount() {
+      this.state.cohort_id = this.props.location.id;
+      this.getAllStudents();
+    }
+  }, {
+    key: "stateChecker",
+    value: function stateChecker() {
+      console.log("state,", this.state);
+      console.log("props:", this.props);
+    }
+  }, {
+    key: "onChangeHandler",
+    value: function onChangeHandler(e) {
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
+    }
+  }, {
+    key: "manualRegister",
+    value: function manualRegister() {
+      var _this3 = this;
 
+      _axios2.default.post("http://localhost:3030/api/students/addStudent", {
+        fullname: this.state.manualStdnt,
+        username: this.state.manualHandle,
+        cohort_id: this.state.cohort_id
+      }).then(function (succ) {
+        console.log("Successfully registered a student!");
+        alert(_this3.state.manualStdnt + " was added as \n          " + _this3.state.manualHandle + " in " + _this3.props.location.name);
+      }).catch(function (err) {
+        console.log("Could not register the student:", err);
+      });
+    }
+  }, {
+    key: "easyRegister",
+    value: function easyRegister() {
+      var temp = this.state.easyStdnt.split(" ");
+      var stdntNameArr = [];
+      for (var i = 0; i < temp.length; i += 2) {
+        var fullname = temp[i] + " " + temp[i + 1];
+        stdntNameArr.push(fullname);
+      }
+      var stdntHandleArr = this.state.easyHandle.split(" ");
 
-    //draggable box function
-    //the received arguments are in space.
-    //will use split to separate each invocation
+      console.log("arr", stdntNameArr, stdntHandleArr);
 
-    //manual entry input.
-
+      for (var j = 0; j < stdntNameArr.length; j++) {
+        _axios2.default.post("http://localhost:3030/api/students/addStudent", {
+          fullname: stdntNameArr[j],
+          username: stdntHandleArr[j],
+          cohort_id: this.state.cohort_id
+        }).then(function (succ) {
+          console.log("Successfully registered a student!");
+          alert("Successfully added the students!");
+        }).catch(function (err) {
+          console.log("Could not register the student:", err);
+        });
+      }
+    }
   }, {
     key: "render",
     value: function render() {
@@ -35701,22 +35786,22 @@ var CohortEntry = function (_Component) {
         _react2.default.createElement(
           "div",
           null,
-          "Easy Entry",
+          "Easy Entry - Copy and Paste or Drag into the box",
           _react2.default.createElement(
             "div",
             null,
-            "Drag Students Name:",
-            _react2.default.createElement("input", null)
+            "Students Name:",
+            _react2.default.createElement("input", { name: "easyStdnt", onChange: this.onChangeHandler })
           ),
           _react2.default.createElement(
             "div",
             null,
-            "Drag GitHub Handles:",
-            _react2.default.createElement("input", null)
+            "GitHub Handles:",
+            _react2.default.createElement("input", { name: "easyHandle", onChange: this.onChangeHandler })
           ),
           _react2.default.createElement(
             "button",
-            null,
+            { onClick: this.easyRegister },
             "Easy Register Students"
           )
         ),
@@ -35728,19 +35813,49 @@ var CohortEntry = function (_Component) {
             "div",
             null,
             "Student Name:",
-            _react2.default.createElement("input", null)
+            _react2.default.createElement("input", {
+              name: "manualStdnt",
+              onChange: this.onChangeHandler
+            })
           ),
           _react2.default.createElement(
             "div",
             null,
             "GitHubHandle:",
-            _react2.default.createElement("input", null)
+            _react2.default.createElement("input", {
+              name: "manualHandle",
+              onChange: this.onChangeHandler
+            })
           ),
           _react2.default.createElement(
             "button",
-            null,
+            { onClick: this.manualRegister },
             "Register A Student"
           )
+        ),
+        this.state.students.map(function (student) {
+          return _react2.default.createElement(
+            "div",
+            null,
+            _react2.default.createElement(
+              "div",
+              null,
+              student.fullname,
+              ": ",
+              student.username,
+              " "
+            )
+          );
+        }),
+        _react2.default.createElement(
+          "button",
+          null,
+          "Git Cloning"
+        ),
+        _react2.default.createElement(
+          "button",
+          { onClick: this.stateChecker },
+          "State Checker"
         )
       );
     }
