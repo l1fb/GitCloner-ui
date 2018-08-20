@@ -1,6 +1,5 @@
 # GitCloner - ui 
 
-```bash
 
 Automatic multiple repository downloader for Hack Reactor pre-course check-in role.
 
